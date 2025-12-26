@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PmiArrival extends Model
 {
@@ -41,4 +42,13 @@ class PmiArrival extends Model
         'pulang_sendiri',
         'transit',
     ];
+
+    /**
+     * Relasi ke tabel users
+     * Satu data kedatangan dicatat oleh satu user
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
