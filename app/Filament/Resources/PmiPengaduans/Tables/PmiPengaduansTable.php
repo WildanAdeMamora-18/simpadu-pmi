@@ -19,6 +19,7 @@ class PmiPengaduansTable
         return $table
             ->columns([
                 TextColumn::make('nama_pmi')
+                    ->label('Nama PMI')
                     ->searchable(),
 
                 TextColumn::make('jenis_pengaduan')
@@ -26,11 +27,11 @@ class PmiPengaduansTable
 
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn(string $state) => match ($state) {
-                        'masuk' => 'danger',
-                        'diproses' => 'warning',
-                        'selesai' => 'success',
-                    }),
+                    ->colors([
+                        'primary' => 'baru',
+                        'warning' => 'diproses',
+                        'success' => 'selesai',
+                    ]),
 
                 TextColumn::make('created_at')
                     ->label('Tanggal Pengaduan')

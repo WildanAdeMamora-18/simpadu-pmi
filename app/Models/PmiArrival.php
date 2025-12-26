@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\User;
+use App\Models\PmiPengaduan;
 
 class PmiArrival extends Model
 {
     protected $fillable = [
+
+        'user_id',
 
         // Kedatangan
         'tanggal_kedatangan',
@@ -50,5 +55,10 @@ class PmiArrival extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function pengaduanPmis(): HasMany
+    {
+        return $this->hasMany(PmiPengaduan::class);
     }
 }

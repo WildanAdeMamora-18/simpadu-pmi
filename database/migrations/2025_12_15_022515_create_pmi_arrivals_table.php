@@ -13,8 +13,8 @@ return new class extends Migration
 
             // Relasi ke users (petugas input)
             $table->foreignId('user_id')
-                  ->constrained('users')
-                  ->onDelete('cascade');
+                ->constrained()
+                ->cascadeOnDelete();
 
             // DATA KEDATANGAN PMI
             $table->date('tanggal_kedatangan');

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('pmi_pengaduans', function (Blueprint $table) {
             $table->id();
+
+            // Relasi
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
             $table->string('nama_pmi');
             $table->string('paspor')->nullable();
             $table->string('negara_asal');
