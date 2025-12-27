@@ -13,6 +13,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 use App\Models\PmiArrival;
+use Illuminate\Support\Facades\Auth;
 
 class PmiArrivalsTable
 {
@@ -27,7 +28,7 @@ class PmiArrivalsTable
                     ->label('No Paspor')
                     ->searchable(),
 
-                    TextColumn::make('tanggal_kedatangan')
+                TextColumn::make('tanggal_kedatangan')
                     ->label('Tanggal Kedatangan')
                     ->date()
                     ->sortable(),
@@ -82,11 +83,13 @@ class PmiArrivalsTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn() => auth::user()?->role === 'admin'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn() => auth::user()?->role === 'admin'),
                 ]),
             ]);
     }

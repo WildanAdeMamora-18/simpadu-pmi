@@ -15,7 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-
+use Illuminate\Support\Facades\Auth;
 
 class PmiArrivalResource extends Resource
 {
@@ -24,7 +24,7 @@ class PmiArrivalResource extends Resource
 
     protected static ?string $model = PmiArrival::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 
     protected static ?string $recordTitleAttribute = 'nama';
 
@@ -58,5 +58,32 @@ class PmiArrivalResource extends Resource
             'view' => ViewPmiArrival::route('/{record}'),
             'edit' => EditPmiArrival::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::check()
+            && Auth::user()->role !== 'public';
+    }
+
+
+    public static function canCreate(): bool
+    {
+        return Auth::check()
+            && in_array(Auth::user()->role, ['admin', 'petugas']);
+    }
+
+
+    public static function canEdit($record): bool
+    {
+        return Auth::check()
+            && Auth::user()->role === 'admin';
+    }
+
+
+    public static function canDelete($record): bool
+    {
+        return Auth::check()
+            && Auth::user()->role === 'admin';
     }
 }

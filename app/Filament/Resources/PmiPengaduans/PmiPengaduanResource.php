@@ -15,7 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-
+use Illuminate\Support\Facades\Auth;
 
 class PmiPengaduanResource extends Resource
 {
@@ -58,5 +58,32 @@ class PmiPengaduanResource extends Resource
             'view' => ViewPmiPengaduan::route('/{record}'),
             'edit' => EditPmiPengaduan::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::check()
+            && Auth::user()->role !== 'public';
+    }
+
+
+    public static function canCreate(): bool
+    {
+        return Auth::check()
+            && in_array(Auth::user()->role, ['admin', 'petugas']);
+    }
+
+
+    public static function canEdit($record): bool
+    {
+        return Auth::check()
+            && Auth::user()->role === 'admin';
+    }
+
+
+    public static function canDelete($record): bool
+    {
+        return Auth::check()
+            && Auth::user()->role === 'admin';
     }
 }

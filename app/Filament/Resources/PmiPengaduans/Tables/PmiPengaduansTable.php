@@ -11,6 +11,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Facades\Auth;
+
 
 class PmiPengaduansTable
 {
@@ -77,11 +79,13 @@ class PmiPengaduansTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn() => Auth::user()?->role === 'admin'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn() => Auth::user()?->role === 'admin'),
                 ]),
             ]);
     }
