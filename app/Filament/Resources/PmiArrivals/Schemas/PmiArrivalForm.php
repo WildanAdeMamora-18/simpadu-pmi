@@ -19,7 +19,7 @@ class PmiArrivalForm
             ->components([
 
                 // Data Kedatangan PMI
-                ComponentsSection::make('Data Kedatangan PMI')
+                ComponentsSection::make('Data Penerbangan PMI')
                     ->schema([
                         DatePicker::make('tanggal_kedatangan')
                             ->label('Tanggal Kedatangan')

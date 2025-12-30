@@ -61,4 +61,9 @@ class PmiArrival extends Model
     {
         return $this->hasMany(PmiPengaduan::class);
     }
+    
+    public function pmi()
+    {
+        return $this->belongsTo(Pmi::class);
+    }
 }

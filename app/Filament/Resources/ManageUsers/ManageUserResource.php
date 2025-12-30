@@ -15,7 +15,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
+use UnitEnum;
 
 class ManageUserResource extends Resource
 {
@@ -23,7 +23,10 @@ class ManageUserResource extends Resource
 
     protected static ?string $navigationLabel = 'Kelola User';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Kelola Data';
+    protected static ?int $navigationSort = 0;
 
     protected static ?string $recordTitleAttribute = 'yes';
 

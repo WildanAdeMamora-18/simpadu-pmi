@@ -16,15 +16,20 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use UnitEnum;
 
 class PmiPengaduanResource extends Resource
 {
 
-    protected static ?string $navigationLabel = 'Pengaduan PMI';
+    protected static ?string $navigationLabel = 'Kelola Pengaduan PMI';
 
     protected static ?string $model = PmiPengaduan::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedEnvelope;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Kelola Data';
+
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $recordTitleAttribute = 'yes';
 
